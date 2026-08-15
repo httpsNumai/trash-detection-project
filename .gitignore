@@ -1,0 +1,29 @@
+# Python
+SP@/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Secrets — never commit these
+firebase-credentials.json
+firebase-config.js
+*firebase-adminsdk*.json
+.env
+!.env.example
+.env.local
+.env.*.local
+
+# Utilities / local tooling
+get-pip.py
+
+# Editor & OS
+.vscode/
+.hintrc
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trash Detection Event Action System (TDEAs)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="table">
+        <section class="table__header">
+            <h1>Trash Detection Event Action System (TDEAs)</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Search Data...">
+            </div>
+        </section>
+        <div class="container mt-3">
+            <table class="table">
+                <thead>
+                    <th>Image</th>
+                    <th>Date & Time</th>
+                </thead>
+                <tbody id="tbody1"></tbody>
+            </table>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+        <script src="firebase-config.js"></script>
+
+        <script>
+            firebase.initializeApp(firebaseConfig);
+
+            var dataRef = firebase.database().ref("frames");
+
+            dataRef.once('value', function (snapshot) {
+                var data = snapshot.val();
+                var tbody = document.getElementById('tbody1');
+
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        var row = tbody.insertRow();
+
+                        var imageCell = row.insertCell(0);
+                        imageCell.innerHTML = '<img src="' + data[key].storage_url + '" alt="Image" style="width: 100px; height: auto;">';
+
+                        var dateCell = row.insertCell(1);
+                        dateCell.innerHTML = new Date().toLocaleString();
+                    }
+                }
+            });
+        </script>
+    </main>
+</body>
+
+</html>
